@@ -11,9 +11,9 @@
 /storage/framework/views/*
 
 # Docker
-mysql_data/
-*.log
-*.pid
+#mysql_data/
+#*.log
+#*.pid
 
 # IDEs y sistema operativo
 .idea/
