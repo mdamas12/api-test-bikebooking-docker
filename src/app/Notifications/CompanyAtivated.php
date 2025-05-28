@@ -35,7 +35,7 @@ class CompanyAtivated extends Notification
         
         $frontendUrl = config('app.url_client'); //config('app.frontend_url'); // asegúrate de tener esto en tu .env
 
-        $url = $frontendUrl . '/reset-password?token=' . $this->new_user['token'] . '&email=' . $this->new_user['user']['email'];
+        $url = $frontendUrl . 'reset-password?token=' . $this->new_user['token'] . '&email=' . $this->new_user['user']['email'];
 
         return (new MailMessage)
             ->subject("Empresa Activada")
