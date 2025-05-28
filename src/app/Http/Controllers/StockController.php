@@ -82,9 +82,14 @@ class StockController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Stock $stock)
+    public function update(Request $request, $stock)
     {
-        //
+        $stock = Stock::where('id', $stock)->first();
+        $stock->update($request->all());  
+        return response()->json([
+            'status' => true,
+            'message' => 'Stock  updated successfully',
+        ],200);
     }
 
     /**

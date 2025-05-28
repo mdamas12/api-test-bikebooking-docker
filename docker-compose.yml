@@ -27,6 +27,20 @@ services:
     networks:
       - bikebooking_network
 
+  worker:
+  build:
+    context: .
+    dockerfile: dockerfiles/php.dockerfile
+  container_name: bikebooking_api_worker
+  command: php /var/www/html/artisan queue:work --sleep=3 --tries=3 --timeout=90
+  volumes:
+    - ./src:/var/www/html
+  depends_on:
+    - mysql
+  networks:
+    - bikebooking_network
+  restart: unless-stopped
+
   php:
     build:
       context: .

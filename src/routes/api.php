@@ -28,13 +28,16 @@ Route::post('companies/application', [CompanyController::class, 'applicationWeb'
 Route::middleware('auth:sanctum')->group(function(){ 
     Route::get('dashboard/users', [AuthController::class, 'getGlobalUsers']); 
     Route::post('dashboard/users/register', [AuthController::class, 'register']);
+
     Route::get('dashboard/companies', [CompanyController::class, 'index']); 
+    Route::get('dashboard/companies/{id}', [CompanyController::class, 'show']); 
     Route::post('dashboard/companies/register', [CompanyController::class, 'store']); 
     Route::put('dashboard/companies/update/{id}', [CompanyController::class, 'update']); 
     Route::put('dashboard/companies/activate/{id}', [CompanyController::class, 'activateCompany']); 
 
     Route::post('dashboard/companies/create-stock', [StockController::class, 'store']); 
     Route::get('dashboard/companies/{company}/get-stocks', [StockController::class, 'index']); 
+    Route::put('dashboard/companies/update-stock/{stock}', [StockController::class, 'update']); 
 
     
     /**

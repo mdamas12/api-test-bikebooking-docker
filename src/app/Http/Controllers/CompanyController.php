@@ -38,6 +38,23 @@ class CompanyController extends Controller
     }
 
     /**
+     * Dashboard - Obtener lista de Empresas
+     *
+     * Retorna una lista de todas las empresas registradas en Bikebooking
+     *
+     * 
+    */
+    public function show($id)
+    {
+        $company = Company::where('id', $id)->first();
+
+        return response()->json([
+                'status' => true,
+                'info' => $company
+        ],200); 
+    }
+
+    /**
      * Dashboard - Registrar una Empresa
      *
      * Endpoint que registra una empresa.
@@ -59,10 +76,16 @@ class CompanyController extends Controller
             'website_url' => 'string|max:30',
             'status' => 'required|in:pending,active,disabled',
         ];
-        $validator = Validator::make($request->all(), $rules, ['required' => 'El Campo :attribute es requerido']);
+        $validator = Validator::make($request->all(), $rules, 
+                                    ['required' => 'El Campo :attribute es requerido',
+                                    'unique' => 'El Campo :attribute ya está registrado.',
+                                    ]);
 
         if ($validator->fails()){
-            return response()->json($validator->errors());
+            return response()->json([
+                'status' => false,
+                'error' => $validator->errors()
+            ],400);
         }
         $company = Company::create($request->all());
 
@@ -117,7 +140,7 @@ class CompanyController extends Controller
                     'country' => 'string|max:30',
                     'phone' => 'string|max:20',
                     'website_url' => 'string|max:50',
-                    'status' => 'required|in:pending,active,disabled',
+                    'status' => 'required|in:pending,active,testing,disabled',
                 ];
                 $validator = Validator::make($request->all(), $rules, ['required' => 'El Campo :attribute es requerido']);
         
