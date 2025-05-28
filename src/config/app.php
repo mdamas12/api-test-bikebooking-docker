@@ -123,4 +123,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'url_client' => env('URL_CLIENT', 'http://localhost:9000/'),
+
 ];
