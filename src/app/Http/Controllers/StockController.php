@@ -95,8 +95,8 @@ class StockController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Stock $stock)
+    public function destroy($id)
     {
-        //
+         //
     }
 }

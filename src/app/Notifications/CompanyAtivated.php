@@ -31,9 +31,7 @@ class CompanyAtivated extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        
-        
-        $frontendUrl = config('app.url_client'); //config('app.frontend_url'); // asegúrate de tener esto en tu .env
+        $frontendUrl =  $frontendUrl = config('app.url_client');  //config('app.frontend_url'); // asegúrate de tener esto en tu .env
 
         $url = $frontendUrl . 'reset-password?token=' . $this->new_user['token'] . '&email=' . $this->new_user['user']['email'];
 

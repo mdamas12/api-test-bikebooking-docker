@@ -68,4 +68,9 @@ class Bike extends Model
     {
         return $this->belongsTo(Insurance::class);
     }
+
+    public function season_bikes(): HasMany
+    {
+        return $this->hasMany(SeasonBike::class);
+    }
 }

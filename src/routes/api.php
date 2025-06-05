@@ -18,6 +18,10 @@ use App\Http\Controllers\BikeAccesoryController;
 use App\Http\Controllers\InsuranceController; 
 use App\Http\Controllers\SeasonRangeController; 
 use App\Http\Controllers\SeasonController;
+use App\Http\Controllers\SeasonBikeController; 
+use App\Http\Controllers\RateController;
+use App\Http\Controllers\FeatureRateController;
+use App\Http\Controllers\FeatureByRateController;
 
 Route::post('auth/login', [AuthController::class, 'login']);
 Route::post('auth/reset-password', [AuthController::class, 'resetPassword']);
@@ -41,25 +45,45 @@ Route::middleware('auth:sanctum')->group(function(){
 
     
     /**
-     * Temporadas
-     */
-
-     Route::get('dashboard/companies/{company}/get-periods', [SeasonRangeController::class, 'index']); 
+     * Temporadas */ 
      Route::get('dashboard/companies/{company}/get-seasons', [SeasonController::class, 'index']); 
-    // Route::post('dashboard/companies/{company}/create-insurance', [InsuranceController::class, 'store']);
+     Route::post('dashboard/companies/create-season', [SeasonController::class, 'store']);
+     Route::put('dashboard/companies/update-season/{id}', [SeasonController::class, 'update']);
+     Route::delete('dashboard/companies/delete-season/{id}', [SeasonController::class, 'destroy']);
+
+    /** 
+     * Periodos */
+     Route::get('dashboard/companies/{company}/get-periods', [SeasonRangeController::class, 'index']); 
+     Route::post('dashboard/companies/create-period', [SeasonRangeController::class, 'store']); 
      Route::put('dashboard/companies/update-period/{period_id}', [SeasonRangeController::class, 'update']);
+     Route::delete('dashboard/companies/delete-period/{id}', [SeasonRangeController::class, 'destroy']);
+     Route::get('dashboard/companies/{company}/get-periods-bike/{id}', [SeasonRangeController::class, 'getPeriodbyBike']); 
+     Route::post('dashboard/companies/modify-period-bike', [SeasonBikeController::class, 'modifyPeriodBike']); 
+     //Route::put('dashboard/companies/update-period-bike/{id}', [SeasonBikeController::class, 'update']); 
+    // Route::delete('dashboard/companies/delete-period-bike/{id}', [SeasonBikeController::class, 'destroy']); 
 
-    /**
-     * Seguros
-     */
+   
 
+     /**
+     * Tarifas ^ caracteristicas */
+     Route::get('dashboard/companies/{company}/get-rates', [RateController::class, 'index']);
+     Route::post('dashboard/companies/create-rate', [RateController::class, 'store']);
+     Route::put('dashboard/companies/update-rate/{rate_id}', [RateController::class, 'update']);
+     Route::delete('dashboard/companies/delete-rate/{rate_id}', [RateController::class, 'destroy']);
+
+     Route::get('dashboard/companies/{company}/get-features-rates', [FeatureRateController::class, 'index']); 
+     Route::post('dashboard/companies/create-feature-rate', [FeatureRateController::class, 'store']);
+     Route::put('dashboard/companies/update-feature-rate/{id}', [FeatureRateController::class, 'update']);
+     Route::delete('dashboard/companies/delete-feature-rate/{id}', [FeatureRateController::class, 'destroy']);
+    
+     /**
+     * Seguros */
      Route::get('dashboard/companies/{company}/get-insurances', [InsuranceController::class, 'index']); 
      Route::post('dashboard/companies/{company}/create-insurance', [InsuranceController::class, 'store']);
      Route::put('dashboard/companies/update-insurance/{insurance_id}', [InsuranceController::class, 'update']);
 
     /**
-     * Gestion de Accesorios 
-     */
+     * Gestion de Accesorios  */
     Route::get('dashboard/companies/{company}/get-categories_accesories', [CategoryAccesoryController::class, 'index']); 
     Route::post('dashboard/companies/{company}/create-category-accesory', [CategoryAccesoryController::class, 'store']); 
     Route::post('/dashboard/companies/update-category-accesory/{category_id}', [CategoryAccesoryController::class, 'update']); 
@@ -69,9 +93,9 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('dashboard/companies/update-accesory/{accesory_id}', [AccesoryController::class, 'update']);  
     Route::post('dashboard/companies/save-accesory-bike', [BikeAccesoryController::class, 'saveAccesoryBybike']); 
     Route::get('/icons/{filename}', [CategoryAccesoryController::class, 'getIcons']);
+   
     /**
-     * Gestion de Items de Bicicletas (bike por tallas)
-     */
+     * Gestion de Items de Bicicletas (bike por tallas)  */
     Route::post('dashboard/companies/create-item-stock', [StockItemController::class, 'store']); //crear un item de una bike
     //Route::get('dashboard/companies/get-item-stock/{bike_id}', [StockItemController::class, 'getItemsByBike']); //obtener todas las bicicletas (item) por bike
     Route::get('dashboard/companies/{company}/get-item-stock/{bike_id}', [StockItemController::class, 'getItemsByBike']);

@@ -3,39 +3,29 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class SeasonRange extends Model
+class FeatureRate extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $table = 'season_ranges';
+    protected $table = 'feature_rates';
     protected $fillable = [
         'company_id',
-        'season_id',
-        'ini_season',
-        'end_season',
-        'value',
-        'status'
-   ];
+        'name',
+        'description',
+        'status',
+    ];
 
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function season(): BelongsTo
+    public function rates_by_bikes(): HasMany
     {
-        return $this->belongsTo(Season::class);
+        return $this->hasMany(FeatureByRate::class);
     }
-
-    public function season_bikes(): HasMany
-    {
-        return $this->hasMany(SeasonBike::class);
-    }
-
-
 }
