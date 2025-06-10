@@ -11,12 +11,17 @@ class TypeBike extends Model
     use HasFactory;
     protected $guarded = [];
     protected $table = 'type_bikes';
+    protected $fillable = [
+        'name',
+        'description' ,
+        'status'
+   ];
 
-    public function category_bike(): BelongsTo
+   /* public function category_bike(): BelongsTo
     {
         return $this->belongsTo(CategoryBike::class);
     }
-
+   */
     public function bikes(): HasMany
     {
         return $this->hasMany(Bike::class);

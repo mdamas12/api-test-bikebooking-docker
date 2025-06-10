@@ -103,9 +103,12 @@ class BikeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Bike $bike)
+    public function get_typey()
     {
-        //
+        return response()->json([
+            'status' => true,
+            'message' => 'ok si aqui estamos',
+        ], 200);
     }
 
     /**

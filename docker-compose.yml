@@ -16,6 +16,7 @@ services:
     container_name: bikebooking_api_server
     networks:
       - bikebooking_network
+    restart: unless-stopped
   frontend:
     image: nginx:stable
     container_name: bikebooking_frontend
@@ -26,6 +27,7 @@ services:
       - ./nginx/frontend.conf:/etc/nginx/conf.d/default.conf:ro
     networks:
       - bikebooking_network
+    restart: unless-stopped
 
   worker:
     build:
@@ -50,6 +52,7 @@ services:
     container_name: bikebooking_api_php
     networks:
       - bikebooking_network
+    restart: unless-stopped
 
   mysql:
     image: mysql:8.0.1
@@ -67,7 +70,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
-    restart: always
+    restart: unless-stopped
     container_name: bikebooking_api_phpmyadmin
     depends_on:
       - mysql
@@ -90,6 +93,7 @@ services:
       - php
     networks:
       - bikebooking_network
+    restart: unless-stopped
 
   artisan:
     build:
@@ -100,3 +104,4 @@ services:
     entrypoint: ["php", "/var/www/html/artisan"]
     networks:
       - bikebooking_network
+    restart: unless-stopped
