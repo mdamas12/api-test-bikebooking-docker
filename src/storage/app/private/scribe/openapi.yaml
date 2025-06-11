@@ -1,0 +1,936 @@
+openapi: 3.0.3
+info:
+  title: 'Bike-Booking-Engine API Documentation'
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+tags:
+  -
+    name: Endpoints
+    description: ''
+paths:
+  /api/auth/login:
+    post:
+      summary: ''
+      operationId: postApiAuthLogin
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address. Must not be greater than 30 characters.'
+                  example: qkunze@example.com
+                  nullable: false
+                password:
+                  type: string
+                  description: ''
+                  example: 'O[2UZ5ij-e/dl4m{o,'
+                  nullable: false
+              required:
+                - email
+                - password
+      security: []
+  /api/auth/reset-password:
+    post:
+      summary: ''
+      operationId: postApiAuthResetPassword
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: qkunze@example.com
+                  nullable: false
+                token:
+                  type: string
+                  description: ''
+                  example: consequatur
+                  nullable: false
+                password:
+                  type: string
+                  description: 'Must be at least 8 characters.'
+                  example: '[2UZ5ij-e/dl4'
+                  nullable: false
+              required:
+                - email
+                - token
+                - password
+      security: []
+  /api/companies/application:
+    post:
+      summary: 'WEB - Aplicacion de una empresa.'
+      operationId: wEBAplicacionDeUnaEmpresa
+      description: "Endpoint que registra una empresa y la ubica en pendiente para usar la app.\n\nAl registar la empresa, se le envia una notificacion via email al contacto de la empresa."
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contact_name:
+                  type: string
+                  description: 'Must not be greater than 30 characters.'
+                  example: vmqeopfuudtdsufvyvddq
+                  nullable: false
+                email:
+                  type: string
+                  description: 'Must not be greater than 50 characters.'
+                  example: kunde.eloisa@example.com
+                  nullable: false
+                company_name:
+                  type: string
+                  description: 'Must not be greater than 60 characters.'
+                  example: hfqcoynlazghdtqtqxbaj
+                  nullable: false
+                fiscal_name:
+                  type: string
+                  description: 'Must not be greater than 60 characters.'
+                  example: wbpilpmufinllwloauydl
+                  nullable: false
+                cif:
+                  type: string
+                  description: 'Must not be greater than 50 characters.'
+                  example: smsjuryvojcybzvrbyick
+                  nullable: false
+                address:
+                  type: string
+                  description: 'Must not be greater than 100 characters.'
+                  example: znkygloigmkwxphlvazjr
+                  nullable: false
+                country:
+                  type: string
+                  description: 'Must not be greater than 30 characters.'
+                  example: cnfbaqywuxhgjjmzuxjub
+                  nullable: false
+                phone:
+                  type: string
+                  description: 'Must not be greater than 20 characters.'
+                  example: qouzswiwxtrkimfca
+                  nullable: false
+                website_url:
+                  type: string
+                  description: 'Must not be greater than 30 characters.'
+                  example: 'http://bernier.net/culpa-reiciendis-totam-est-consequatur-doloribus-optio-est'
+                  nullable: false
+                status:
+                  type: string
+                  description: ''
+                  example: pending
+                  nullable: false
+                  enum:
+                    - pending
+                    - active
+                    - disabled
+              required:
+                - contact_name
+                - email
+                - company_name
+                - fiscal_name
+                - cif
+                - status
+      security: []
+  /api/dashboard/users:
+    get:
+      summary: ''
+      operationId: getApiDashboardUsers
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/dashboard/users/register:
+    post:
+      summary: ''
+      operationId: postApiDashboardUsersRegister
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Must not be greater than 100 characters.'
+                  example: vmqeopfuudtdsufvyvddq
+                  nullable: false
+                email:
+                  type: string
+                  description: 'Must be a valid email address. Must not be greater than 100 characters.'
+                  example: kunde.eloisa@example.com
+                  nullable: false
+                password:
+                  type: string
+                  description: 'Must be at least 8 characters.'
+                  example: '4[*UyPJ"}6'
+                  nullable: false
+              required:
+                - name
+                - email
+                - password
+      security: []
+  /api/dashboard/companies:
+    get:
+      summary: 'Dashboard - Obtener lista de Empresas'
+      operationId: dashboardObtenerListaDeEmpresas
+      description: 'Retorna una lista de todas las empresas registradas en Bikebooking'
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/dashboard/companies/register:
+    post:
+      summary: 'Dashboard - Registrar una Empresa'
+      operationId: dashboardRegistrarUnaEmpresa
+      description: 'Endpoint que registra una empresa.'
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contact_name:
+                  type: string
+                  description: 'Must not be greater than 30 characters.'
+                  example: vmqeopfuudtdsufvyvddq
+                  nullable: false
+                email:
+                  type: string
+                  description: 'Must not be greater than 50 characters.'
+                  example: kunde.eloisa@example.com
+                  nullable: false
+                company_name:
+                  type: string
+                  description: 'Must not be greater than 60 characters.'
+                  example: hfqcoynlazghdtqtqxbaj
+                  nullable: false
+                fiscal_name:
+                  type: string
+                  description: 'Must not be greater than 60 characters.'
+                  example: wbpilpmufinllwloauydl
+                  nullable: false
+                cif:
+                  type: string
+                  description: 'Must not be greater than 50 characters.'
+                  example: smsjuryvojcybzvrbyick
+                  nullable: false
+                address:
+                  type: string
+                  description: 'Must not be greater than 100 characters.'
+                  example: znkygloigmkwxphlvazjr
+                  nullable: false
+                country:
+                  type: string
+                  description: 'Must not be greater than 30 characters.'
+                  example: cnfbaqywuxhgjjmzuxjub
+                  nullable: false
+                phone:
+                  type: string
+                  description: 'Must not be greater than 20 characters.'
+                  example: qouzswiwxtrkimfca
+                  nullable: false
+                website_url:
+                  type: string
+                  description: 'Must not be greater than 30 characters.'
+                  example: 'http://bernier.net/culpa-reiciendis-totam-est-consequatur-doloribus-optio-est'
+                  nullable: false
+                status:
+                  type: string
+                  description: ''
+                  example: disabled
+                  nullable: false
+                  enum:
+                    - pending
+                    - active
+                    - disabled
+              required:
+                - contact_name
+                - email
+                - company_name
+                - fiscal_name
+                - cif
+                - status
+      security: []
+  '/api/dashboard/companies/update/{id}':
+    put:
+      summary: 'Dashboard - Actualizar datos de una Empresa'
+      operationId: dashboardActualizarDatosDeUnaEmpresa
+      description: 'Endpoint que actuqaliza datos de una empresa.'
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the update.'
+        example: consequatur
+        required: true
+        schema:
+          type: string
+  '/api/dashboard/companies/activate/{id}':
+    put:
+      summary: 'Dashboard - Activacion de una empresa.'
+      operationId: dashboardActivacionDeUnaEmpresa
+      description: "Endpoint que valida y activa una empresa.\n\nAl activar una empresa se generara la informacion inicial como:\nRangos de precios, Tipos de bicicletas, Temporadas,\n\nSi la empresa entra en modo prueba, se registrara 30 dias de prueba."
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the activate.'
+        example: consequatur
+        required: true
+        schema:
+          type: string
+  /api/dashboard/companies/create-stock:
+    post:
+      summary: 'Store a newly created resource in storage.'
+      operationId: storeANewlyCreatedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the companies table.'
+                  example: consequatur
+                  nullable: false
+                name:
+                  type: string
+                  description: 'Must not be greater than 60 characters.'
+                  example: mqeopfuudtdsufvyvddqa
+                  nullable: false
+              required:
+                - company_id
+                - name
+      security: []
+  '/api/dashboard/companies/{company}/get-stocks':
+    get:
+      summary: 'Display a listing of the resource.'
+      operationId: displayAListingOfTheResource
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: company
+        description: 'The company.'
+        example: consequatur
+        required: true
+        schema:
+          type: string
+  /api/dashboard/companies/create-item-stock:
+    post:
+      summary: 'Store a newly created resource in storage.'
+      operationId: storeANewlyCreatedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                stock_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the stocks table.'
+                  example: consequatur
+                  nullable: false
+                bike_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the bikes table.'
+                  example: consequatur
+                  nullable: false
+                size:
+                  type: string
+                  description: ''
+                  example: M
+                  nullable: false
+                  enum:
+                    - XS
+                    - S
+                    - M
+                    - L
+                    - XL
+                code:
+                  type: string
+                  description: 'Must not be greater than 50 characters.'
+                  example: mqeopfuudtdsufvyvddqa
+                  nullable: false
+                price:
+                  type: number
+                  description: 'Must be at least 0.'
+                  example: 45
+                  nullable: false
+                status:
+                  type: string
+                  description: ''
+                  example: reserved
+                  nullable: false
+                  enum:
+                    - active
+                    - active
+                    - reserved
+                    - maintenance
+                    - Damaged
+                    - disabled
+                    - sale
+              required:
+                - stock_id
+                - bike_id
+                - size
+                - code
+                - price
+                - status
+      security: []
+  /api/dashboard/companies/create-price-bike:
+    post:
+      summary: 'Store a newly created resource in storage.'
+      operationId: storeANewlyCreatedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                stock_item_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the stock_items table.'
+                  example: consequatur
+                  nullable: false
+                price_range_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the price_ranges table.'
+                  example: consequatur
+                  nullable: false
+                value:
+                  type: number
+                  description: 'Must be at least 0.'
+                  example: 45
+                  nullable: false
+              required:
+                - stock_item_id
+                - price_range_id
+                - value
+      security: []
+  /api/dashboard/companies/save-price-bike:
+    post:
+      summary: ''
+      operationId: postApiDashboardCompaniesSavePriceBike
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                stock_item_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the stock_items table.'
+                  example: consequatur
+                  nullable: false
+                price_range_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the price_ranges table.'
+                  example: consequatur
+                  nullable: false
+                value:
+                  type: number
+                  description: 'Must be at least 0.'
+                  example: 45
+                  nullable: false
+              required:
+                - stock_item_id
+                - price_range_id
+                - value
+      security: []
+  '/api/dashboard/companies/{company}/get-price-bike/{item_stock_id}':
+    get:
+      summary: 'Display the specified resource.'
+      operationId: displayTheSpecifiedResource
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: company
+        description: 'The company.'
+        example: consequatur
+        required: true
+        schema:
+          type: string
+      -
+        in: path
+        name: item_stock_id
+        description: 'The ID of the item stock.'
+        example: consequatur
+        required: true
+        schema:
+          type: string
+  /api/dashboard/companies/create-store:
+    post:
+      summary: 'Store a newly created resource in storage.'
+      operationId: storeANewlyCreatedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the companies table.'
+                  example: consequatur
+                  nullable: false
+                stock_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the stocks table.'
+                  example: consequatur
+                  nullable: false
+                name:
+                  type: string
+                  description: 'Must not be greater than 60 characters.'
+                  example: mqeopfuudtdsufvyvddqa
+                  nullable: false
+              required:
+                - company_id
+                - stock_id
+                - name
+      security: []
+  '/api/dashboard/companies/{company}/get-stores':
+    get:
+      summary: 'Display a listing of the resource.'
+      operationId: displayAListingOfTheResource
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: company
+        description: 'The company.'
+        example: consequatur
+        required: true
+        schema:
+          type: string
+  '/api/dashboard/companies/{company}/get-ranges':
+    get:
+      summary: 'Display a listing of the resource.'
+      operationId: displayAListingOfTheResource
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: company
+        description: 'The company.'
+        example: consequatur
+        required: true
+        schema:
+          type: string
+  /api/dashboard/companies/create-range:
+    post:
+      summary: 'Store a newly created resource in storage.'
+      operationId: storeANewlyCreatedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the companies table.'
+                  example: consequatur
+                  nullable: false
+                min_range:
+                  type: integer
+                  description: 'Must be at least 1.'
+                  example: 45
+                  nullable: false
+                max_range:
+                  type: integer
+                  description: ''
+                  example: 17
+                  nullable: false
+                type:
+                  type: string
+                  description: ''
+                  example: increase
+                  nullable: false
+                  enum:
+                    - increase
+                    - discount
+                apply_to:
+                  type: string
+                  description: ''
+                  example: quantity_bikes
+                  nullable: false
+                  enum:
+                    - quantity_days
+                    - quantity_bikes
+                    - quantity_available
+                type_value:
+                  type: string
+                  description: ''
+                  example: percentage
+                  nullable: false
+                  enum:
+                    - percentage
+                    - value
+                status:
+                  type: boolean
+                  description: ''
+                  example: true
+                  nullable: false
+              required:
+                - company_id
+                - min_range
+                - max_range
+                - type
+                - apply_to
+                - type_value
+      security: []
+  '/api/dashboard/companies/update-range/{id}':
+    put:
+      summary: 'Update the specified resource in storage.'
+      operationId: updateTheSpecifiedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the companies table.'
+                  example: consequatur
+                  nullable: false
+                min_range:
+                  type: integer
+                  description: 'Must be at least 1.'
+                  example: 45
+                  nullable: false
+                max_range:
+                  type: integer
+                  description: ''
+                  example: 17
+                  nullable: false
+                type:
+                  type: string
+                  description: ''
+                  example: discount
+                  nullable: false
+                  enum:
+                    - increase
+                    - discount
+                apply_to:
+                  type: string
+                  description: ''
+                  example: quantity_days
+                  nullable: false
+                  enum:
+                    - quantity_days
+                    - quantity_bikes
+                    - quantity_available
+                type_value:
+                  type: string
+                  description: ''
+                  example: value
+                  nullable: false
+                  enum:
+                    - percentage
+                    - value
+                status:
+                  type: boolean
+                  description: ''
+                  example: false
+                  nullable: false
+              required:
+                - company_id
+                - min_range
+                - max_range
+                - type
+                - apply_to
+                - type_value
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the update range.'
+        example: consequatur
+        required: true
+        schema:
+          type: string
+  '/api/dashboard/companies/delete-range/{id}':
+    delete:
+      summary: 'Remove the specified resource from storage.'
+      operationId: removeTheSpecifiedResourceFromStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the delete range.'
+        example: consequatur
+        required: true
+        schema:
+          type: string
+  /api/dashboard/companies/create-bike:
+    post:
+      summary: 'Store a newly created resource in storage.'
+      operationId: storeANewlyCreatedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the companies table.'
+                  example: consequatur
+                  nullable: false
+                type_bike_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the type_bikes table.'
+                  example: consequatur
+                  nullable: false
+                brand_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the brands table.'
+                  example: consequatur
+                  nullable: false
+                name:
+                  type: string
+                  description: 'Must not be greater than 60 characters.'
+                  example: mqeopfuudtdsufvyvddqa
+                  nullable: false
+                model:
+                  type: string
+                  description: 'Must not be greater than 50 characters.'
+                  example: mniihfqcoynlazghdtqtq
+                  nullable: false
+              required:
+                - company_id
+                - type_bike_id
+                - brand_id
+                - name
+                - model
+      security: []
+  '/api/dashboard/companies/{company}/get-bikes':
+    get:
+      summary: 'Display a listing of the resource.'
+      operationId: displayAListingOfTheResource
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: company
+        description: 'The company.'
+        example: consequatur
+        required: true
+        schema:
+          type: string
