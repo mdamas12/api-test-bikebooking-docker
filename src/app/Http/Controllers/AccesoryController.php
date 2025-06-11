@@ -60,31 +60,43 @@ class AccesoryController extends Controller
      */
     public function store(Request $request, $company)
     {
-
-
-        if (!empty(array_filter($request->category, fn($value) => !is_null($value)))) {
+        $category = [
+                'name' => $request->input('category.name'),
+                'description' => $request->input('category.description')
+            ];
+       
+        if (!empty(array_filter($category, fn($value) => !is_null($value)))) {
             $newCategory = CategoryAccesory::create([
                 'company_id' => $company,
-                'name' => $request->category['name'],
-                'description' => $request->category['description'],
+                'name' => $category['name'],
+                'description' => $category['description'],
             ]);
             $category_id =  $newCategory->id;
         }
         else{
-            $category_id = $request->accesory["category_accesory_id"]["value"];
+            $category_id = $request->input('category_id');
         }
+
+        if ($request->hasFile('image')) {
+            /**Imagen save */
+            $path = $request->file('image')->store('accesories', 'public');   
+        }
+        else {
+            $path = "";
+        }
+  
 
       
         $accesory = Accesory::create([
             'company_id' => $company,
             'category_accesory_id' => $category_id,
-            'name' => $request->accesory['name'],
-            'path' => $request->accesory['path'],
-            'order' => $request->accesory['order'],
-            'quantity' => $request->accesory['quantity'],
-            'price_day' => $request->accesory['price_day'],
-            'price_booking' => $request->accesory['price_booking'],
-            'is_price_booking' => $request->accesory['is_price_booking'],
+            'name' => $request->input('name'),
+            'path' => $path,
+            'order' => $request->input('order'),
+            'quantity' => $request->input('quantity'),
+            'price_day' => $request->input('price_day'),
+            'price_booking' => $request->input('price_booking'),
+            'is_price_booking' => $request->input('is_price_booking'),
         ]);
 
         return response()->json([
